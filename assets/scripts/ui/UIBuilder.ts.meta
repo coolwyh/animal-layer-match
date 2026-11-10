@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "c5369c1b-86d2-5971-92b0-491a1c34c70d",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/UIBuilder.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "d927c0b7-a550-528f-9b96-d06a18a60083",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/utils/Storage.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

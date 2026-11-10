@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "f1101268-521f-5c56-9269-ed91640a1a9e",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/core/BoardManager.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

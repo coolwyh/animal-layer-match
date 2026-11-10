@@ -1,0 +1,122 @@
+{
+  "designResolution": [
+    750,
+    1334
+  ],
+  "startScene": "assets/scenes/LoadingScene.scene",
+  "scenes": [
+    "assets/scenes/LoadingScene.scene",
+    "assets/scenes/LobbyScene.scene",
+    "assets/scenes/GameScene.scene"
+  ],
+  "animals": [
+    "cat",
+    "dog",
+    "chicken",
+    "frog",
+    "cow",
+    "pig",
+    "rabbit",
+    "monkey",
+    "penguin",
+    "fox"
+  ],
+  "textures": {
+    "ui": [
+      "textures/ui/logo.png",
+      "textures/ui/btn_orange.png",
+      "textures/ui/btn_green.png",
+      "textures/ui/btn_blue.png",
+      "textures/ui/board_plate.png",
+      "textures/ui/card_base.png",
+      "textures/ui/card_mask.png",
+      "textures/ui/progress_fill.png",
+      "textures/ui/avatar.png",
+      "textures/ui/white.png"
+    ],
+    "animals": [
+      "textures/animals/cat.png",
+      "textures/animals/dog.png",
+      "textures/animals/chicken.png",
+      "textures/animals/frog.png",
+      "textures/animals/cow.png",
+      "textures/animals/pig.png",
+      "textures/animals/rabbit.png",
+      "textures/animals/monkey.png",
+      "textures/animals/penguin.png",
+      "textures/animals/fox.png"
+    ]
+  },
+  "audio": {
+    "bgm": "audio/bgm_soft.wav",
+    "sfx": [
+      "audio/sfx_match.wav",
+      "audio/sfx_crit.wav"
+    ],
+    "animals": [
+      "audio/animals/cat.wav",
+      "audio/animals/dog.wav",
+      "audio/animals/chicken.wav",
+      "audio/animals/frog.wav",
+      "audio/animals/cow.wav",
+      "audio/animals/pig.wav",
+      "audio/animals/rabbit.wav",
+      "audio/animals/monkey.wav",
+      "audio/animals/penguin.wav",
+      "audio/animals/fox.wav"
+    ]
+  },
+  "prefabs": [
+    "prefabs/CardPrefab.prefab"
+  ],
+  "uuids": {
+    "folder_assets": "a1000001-0000-4000-8000-000000000001",
+    "folder_scenes": "a1000001-0000-4000-8000-000000000002",
+    "folder_prefabs": "a1000001-0000-4000-8000-000000000003",
+    "folder_textures": "a1000001-0000-4000-8000-000000000004",
+    "folder_animals": "a1000001-0000-4000-8000-000000000005",
+    "folder_ui": "a1000001-0000-4000-8000-000000000006",
+    "folder_audio": "a1000001-0000-4000-8000-000000000007",
+    "folder_scripts": "a1000001-0000-4000-8000-000000000010",
+    "scene_loading": "b2000001-1111-4111-8111-000000000001",
+    "scene_lobby": "b2000001-1111-4111-8111-000000000002",
+    "scene_game": "b2000001-1111-4111-8111-000000000003",
+    "prefab_card": "c3000001-2222-4222-8222-000000000001",
+    "script_loading": "d4000001-3333-4333-8333-000000000001",
+    "script_lobby": "d4000001-3333-4333-8333-000000000002",
+    "script_game": "d4000001-3333-4333-8333-000000000003",
+    "tex_logo": "e5000001-4444-4444-8444-000000000001",
+    "tex_btn_orange": "e5000001-4444-4444-8444-000000000002",
+    "tex_btn_green": "e5000001-4444-4444-8444-000000000003",
+    "tex_btn_blue": "e5000001-4444-4444-8444-000000000004",
+    "tex_board": "e5000001-4444-4444-8444-000000000005",
+    "tex_card_base": "e5000001-4444-4444-8444-000000000006",
+    "tex_mask": "e5000001-4444-4444-8444-000000000007",
+    "tex_progress": "e5000001-4444-4444-8444-000000000008",
+    "tex_avatar": "e5000001-4444-4444-8444-000000000009",
+    "tex_white": "e5000001-4444-4444-8444-00000000000a",
+    "audio_bgm": "f6000001-5555-4555-8555-000000000001",
+    "audio_match": "f6000001-5555-4555-8555-000000000002",
+    "audio_crit": "f6000001-5555-4555-8555-000000000003",
+    "tex_cat": "e5000002-4444-4444-8444-000000000001",
+    "audio_cat": "f6000002-5555-4555-8555-000000000001",
+    "tex_dog": "e5000002-4444-4444-8444-000000000002",
+    "audio_dog": "f6000002-5555-4555-8555-000000000002",
+    "tex_chicken": "e5000002-4444-4444-8444-000000000003",
+    "audio_chicken": "f6000002-5555-4555-8555-000000000003",
+    "tex_frog": "e5000002-4444-4444-8444-000000000004",
+    "audio_frog": "f6000002-5555-4555-8555-000000000004",
+    "tex_cow": "e5000002-4444-4444-8444-000000000005",
+    "audio_cow": "f6000002-5555-4555-8555-000000000005",
+    "tex_pig": "e5000002-4444-4444-8444-000000000006",
+    "audio_pig": "f6000002-5555-4555-8555-000000000006",
+    "tex_rabbit": "e5000002-4444-4444-8444-000000000007",
+    "audio_rabbit": "f6000002-5555-4555-8555-000000000007",
+    "tex_monkey": "e5000002-4444-4444-8444-000000000008",
+    "audio_monkey": "f6000002-5555-4555-8555-000000000008",
+    "tex_penguin": "e5000002-4444-4444-8444-000000000009",
+    "audio_penguin": "f6000002-5555-4555-8555-000000000009",
+    "tex_fox": "e5000002-4444-4444-8444-000000000010",
+    "audio_fox": "f6000002-5555-4555-8555-000000000010"
+  }
+}

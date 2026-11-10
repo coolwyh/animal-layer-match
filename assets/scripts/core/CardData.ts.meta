@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "8163b815-c508-5be3-918a-3236abe2f319",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/core/CardData.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

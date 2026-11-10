@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "12903a89-a640-5192-98e6-dbb2d9f63668",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/core/Pathfinding.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}
