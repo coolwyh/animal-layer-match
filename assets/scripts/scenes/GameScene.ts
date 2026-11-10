@@ -10,6 +10,7 @@ import { ResultPanel } from '../ui/panels/ResultPanel';
 import { TutorialLayer } from '../ui/panels/TutorialLayer';
 import { UIBuilder, type GameHUD } from '../ui/UIBuilder';
 import { loadNumber, saveNumber } from '../utils/Storage';
+import { resolveCanvas } from '../utils/SceneUtil';
 
 const { ccclass } = _decorator;
 
@@ -235,11 +236,6 @@ export class GameScene extends Component {
   }
 
   private ensureCanvas(): Node {
-    let canvas = this.node.getChildByName('Canvas');
-    if (!canvas) {
-      canvas = new Node('Canvas');
-      this.node.addChild(canvas);
-    }
-    return canvas;
+    return resolveCanvas(this.node);
   }
 }

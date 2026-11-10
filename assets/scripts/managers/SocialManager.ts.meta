@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "4a75f8d6-0598-5dcf-886c-3b528f39c243",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/managers/SocialManager.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

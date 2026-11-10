@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "c90d20a5-0896-5c7a-9b74-b22887ff9961",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/ComboBar.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

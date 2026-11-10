@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "718e2859-e9af-5293-89cf-67c38a5a83b1",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/panels/TutorialLayer.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

@@ -1,9 +1,10 @@
-import { _decorator, Component, director, Node } from 'cc';
+import { _decorator, Component, director } from 'cc';
 import { loadNumber, saveNumber } from '../utils/Storage';
 import { SocialManager } from '../managers/SocialManager';
 import { RankPanel } from '../ui/panels/RankPanel';
 import { UIBuilder } from '../ui/UIBuilder';
 import { ANIMAL_LORE, ANIMAL_NAMES, ANIMAL_PATTERNS } from '../core/GameConfig';
+import { resolveCanvas } from '../utils/SceneUtil';
 
 const { ccclass } = _decorator;
 
@@ -58,12 +59,7 @@ export class LobbyScene extends Component {
     });
   }
 
-  private ensureCanvas(): Node {
-    let canvas = this.node.getChildByName('Canvas');
-    if (!canvas) {
-      canvas = new Node('Canvas');
-      this.node.addChild(canvas);
-    }
-    return canvas;
+  private ensureCanvas() {
+    return resolveCanvas(this.node);
   }
 }

@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "2bf4ae5e-a1c6-5b78-8cb0-1da3e47bae30",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/core/GameConfig.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

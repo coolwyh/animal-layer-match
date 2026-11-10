@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "fcea3571-40a6-5fbd-bf19-ca31041250a1",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/managers/AdManager.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

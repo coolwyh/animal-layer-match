@@ -8,7 +8,8 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test:core": "node scripts/run-core-tests.mjs"
+    "test:core": "node scripts/run-core-tests.mjs",
+    "generate:assets": "python3 tools/generate_cocos_assets.py"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

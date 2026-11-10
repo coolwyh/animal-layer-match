@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "81fe697c-fb4c-531a-aaca-947733596830",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/panels/AdHintPanel.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

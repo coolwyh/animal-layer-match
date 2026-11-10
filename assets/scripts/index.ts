@@ -13,6 +13,7 @@ export {
 export { AudioManager } from './managers/AudioManager';
 export { AdManager } from './managers/AdManager';
 export { SocialManager } from './managers/SocialManager';
+export { ResourceManager } from './managers/ResourceManager';
 export { UIBuilder } from './ui/UIBuilder';
 export { CardView } from './ui/CardView';
 export { LoadingScene } from './scenes/LoadingScene';

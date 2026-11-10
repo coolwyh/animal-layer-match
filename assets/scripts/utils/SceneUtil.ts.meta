@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "bb6a75f2-d6de-5e12-a663-40310116f6da",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/utils/SceneUtil.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

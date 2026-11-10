@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "117fa9ba-9d3b-5ac0-80cd-ab3a74163385",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/CardView.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

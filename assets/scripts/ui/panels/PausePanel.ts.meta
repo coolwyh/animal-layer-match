@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "2cd13a0a-e75c-5bfc-8a01-4833e0b67455",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/panels/PausePanel.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}
