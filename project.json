@@ -1,0 +1,8 @@
+{
+  "engine": "cocos-creator",
+  "packages": "packages",
+  "name": "animal-layer-match",
+  "id": "animal-layer-match",
+  "version": "3.8.8",
+  "isNew": false
+}

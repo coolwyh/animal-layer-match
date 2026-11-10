@@ -1,0 +1,16 @@
+{
+  "name": "animal-layer-match",
+  "version": "1.0.0",
+  "description": "动物层层消 - 微信小游戏 (Cocos Creator 3.8.8)",
+  "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test:core": "node scripts/run-core-tests.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

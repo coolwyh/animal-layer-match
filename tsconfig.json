@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ES2015",
+    "strict": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "lib": ["ES2015", "DOM"],
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "cc": ["types/cc.d.ts"],
+      "db://assets/*": ["assets/*"]
+    },
+    "rootDir": ".",
+    "outDir": "temp/ts-out"
+  },
+  "include": [
+    "assets/scripts/**/*.ts",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "library",
+    "temp",
+    "build",
+    "local"
+  ]
+}

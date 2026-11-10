@@ -1,0 +1,13 @@
+node_modules/
+library/
+temp/
+local/
+build/
+profiles/
+native/
+.settings/
+*.log
+.DS_Store
+.idea/
+.vscode/
+package-lock.json
