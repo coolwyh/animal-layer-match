@@ -9,7 +9,8 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test:core": "node scripts/run-core-tests.mjs",
-    "generate:assets": "python3 tools/generate_cocos_assets.py"
+    "generate:assets": "python3 tools/generate_cocos_assets.py",
+    "generate:lobby": "python3 tools/generate_lobby_art.py"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

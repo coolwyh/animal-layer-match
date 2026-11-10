@@ -169,6 +169,7 @@ declare module 'cc' {
     rect(x: number, y: number, w: number, h: number): void;
     roundRect(x: number, y: number, w: number, h: number, r: number): void;
     circle(cx: number, cy: number, r: number): void;
+    ellipse(cx: number, cy: number, rx: number, ry: number): void;
     fill(): void;
     stroke(): void;
     close(): void;

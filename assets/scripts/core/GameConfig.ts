@@ -16,6 +16,12 @@ export const Theme = {
   maskDark: 'rgba(0,0,0,0.55)',
   badgeRed: '#E53935',
   gold: '#FFD700',
+  /** 大厅氛围色（薄荷绿 → 暖杏） */
+  lobbySkyTop: '#BAE6D2',
+  lobbySkyBottom: '#FFECD2',
+  lobbyInk: '#1F3B2C',
+  lobbyMuted: '#4E6A58',
+  lobbyGlass: '#FFFFFF',
 } as const;
 
 export const BoardConfig = {
