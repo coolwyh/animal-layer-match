@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "e0d8fe3d-3a8d-58ea-995c-ae8c00c8ba21",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/ui/panels/RankPanel.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

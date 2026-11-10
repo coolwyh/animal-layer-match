@@ -1,13 +1,17 @@
 import {
   BlockInputEvents,
   Button,
+  Color,
   Graphics,
   Label,
   Layout,
   Node,
+  Sprite,
+  SpriteFrame,
   UIOpacity,
   UITransform,
   Widget,
+  resources,
   tween,
   Vec3,
 } from 'cc';
@@ -225,7 +229,11 @@ export class UIBuilder {
     g.fill();
   }
 
-  /** 大厅 */
+  /**
+   * 大厅（主流休闲向）：
+   * 全屏氛围底 + 品牌主视觉 + 一句 slogan + 单一主 CTA
+   * 次级入口弱化，底部工具条轻量
+   */
   static buildLobby(parent: Node): {
     startBtn: CapsuleButton;
     rankBtn: CapsuleButton;
@@ -235,31 +243,49 @@ export class UIBuilder {
     coinLabel: Label;
     nameLabel: Label;
   } {
-    UIBuilder.fillBackground(parent);
     const safeTop = UIBuilder.capsuleSafeTop();
     const safeRight = UIBuilder.capsuleSafeRight();
 
-    // 左上角头像+昵称
+    // 1) 全屏氛围背景（渐变 + 资源贴图兜底）
+    UIBuilder.paintLobbyAtmosphere(parent);
+
+    // 2) 顶部个人信息（轻量，不抢品牌）
     const profile = new Node('Profile');
     parent.addChild(profile);
     const pw = profile.addComponent(Widget);
     pw.isAlignTop = true;
     pw.isAlignLeft = true;
     pw.top = safeTop;
-    pw.left = 24;
+    pw.left = 28;
+
     const avatar = new Node('Avatar');
     profile.addChild(avatar);
-    avatar.setPosition(40, -40, 0);
-    avatar.addComponent(UITransform).setContentSize(72, 72);
+    avatar.setPosition(36, -36, 0);
+    avatar.addComponent(UITransform).setContentSize(64, 64);
     const ag = avatar.addComponent(Graphics);
-    ag.fillColor = hexColor(Theme.lightBlue);
-    ag.circle(0, 0, 36);
+    ag.fillColor = hexColor('#FFFFFF', 210);
+    ag.circle(0, 0, 32);
     ag.fill();
-    const nameLabel = UIBuilder.makeLabel(profile, 'Nickname', '打工人', 24);
-    nameLabel.node.setPosition(130, -40, 0);
-    nameLabel.horizontalAlign = Label.HorizontalAlign.LEFT;
+    ag.strokeColor = hexColor('#FFFFFF', 255);
+    ag.lineWidth = 3;
+    ag.circle(0, 0, 32);
+    ag.stroke();
+    const avInner = new Node('AvatarInner');
+    avatar.addChild(avInner);
+    avInner.addComponent(UITransform).setContentSize(56, 56);
+    const ig = avInner.addComponent(Graphics);
+    ig.fillColor = hexColor('#7CB342');
+    ig.circle(0, 0, 26);
+    ig.fill();
 
-    // 右上角绝对留白（避开胶囊）
+    const nameLabel = UIBuilder.makeLabel(profile, 'Nickname', '打工人', 24, Theme.lobbyInk);
+    nameLabel.node.setPosition(118, -28, 0);
+    nameLabel.horizontalAlign = Label.HorizontalAlign.LEFT;
+    const sub = UIBuilder.makeLabel(profile, 'Status', '解压时刻已就绪', 18, Theme.lobbyMuted);
+    sub.node.setPosition(118, -54, 0);
+    sub.horizontalAlign = Label.HorizontalAlign.LEFT;
+
+    // 右上角胶囊避让
     const spacer = new Node('CapsuleSpacer');
     parent.addChild(spacer);
     const sw = spacer.addComponent(Widget);
@@ -269,75 +295,297 @@ export class UIBuilder {
     sw.right = 0;
     spacer.addComponent(UITransform).setContentSize(safeRight, safeTop + 40);
 
-    UIBuilder.makeLabel(parent, 'Title', '动物层层消', 52, Theme.textDark).node.setPosition(
-      0,
-      280,
-      0,
-    );
+    // 3) 英雄主视觉：动物群像（第一屏唯一大图）
+    const hero = new Node('HeroAnimals');
+    parent.addChild(hero);
+    hero.setPosition(0, 210, 0);
+    hero.addComponent(UITransform).setContentSize(700, 520);
+    UIBuilder.drawHeroFallback(hero);
+    UIBuilder.tryBindSprite(hero, 'textures/ui/lobby_hero/spriteFrame', 700, 520);
+    // 动效 1：主视觉轻浮
+    tween(hero)
+      .to(2.2, { position: new Vec3(0, 228, 0) }, { easing: 'sineInOut' })
+      .to(2.2, { position: new Vec3(0, 210, 0) }, { easing: 'sineInOut' })
+      .union()
+      .repeatForever()
+      .start();
 
-    const startBtn = UIBuilder.makeCapsuleButton(
+    // 4) 品牌（必须压过其它文案）
+    const brand = new Node('Brand');
+    parent.addChild(brand);
+    brand.setPosition(0, 470, 0);
+    brand.setScale(new Vec3(0.92, 0.92, 1));
+    const brandTitle = UIBuilder.makeLabel(brand, 'Title', '动物层层消', 64, Theme.lobbyInk);
+    brandTitle.isBold = true;
+    brandTitle.node.setPosition(0, 18, 0);
+    const brandEn = UIBuilder.makeLabel(brand, 'TitleEn', 'ANIMAL LAYER MATCH', 20, Theme.lobbyMuted);
+    brandEn.node.setPosition(0, -28, 0);
+    const slogan = UIBuilder.makeLabel(
+      brand,
+      'Slogan',
+      '三秒入戏 · 多层连连看 · 把班味消干净',
+      22,
+      Theme.lobbyMuted,
+    );
+    slogan.node.setPosition(0, -64, 0);
+    // 动效 2：品牌入场
+    const brandOpacity = brand.addComponent(UIOpacity);
+    brandOpacity.opacity = 0;
+    tween(brandOpacity).to(0.55, { opacity: 255 }).start();
+    tween(brand)
+      .to(0.55, { scale: new Vec3(1, 1, 1), position: new Vec3(0, 455, 0) }, { easing: 'quadOut' })
+      .start();
+
+    // 5) 单一主 CTA
+    const startBtn = UIBuilder.makeDepthButton(
       parent,
       'StartBtn',
       '开始闯关',
-      420,
-      96,
+      460,
+      108,
       Theme.warmOrange,
+      '#E65100',
+      40,
     );
-    startBtn.node.setPosition(0, 80, 0);
+    startBtn.node.setPosition(0, -40, 0);
+    // 动效 3：主按钮呼吸
+    tween(startBtn.node)
+      .delay(0.6)
+      .to(0.9, { scale: new Vec3(1.035, 1.035, 1) }, { easing: 'sineInOut' })
+      .to(0.9, { scale: new Vec3(1, 1, 1) }, { easing: 'sineInOut' })
+      .union()
+      .repeatForever()
+      .start();
+    UIBuilder.tryBindSprite(startBtn.node, 'textures/ui/lobby_btn_primary/spriteFrame', 460, 108, true);
 
-    const rankBtn = UIBuilder.makeCapsuleButton(
-      parent,
-      'RankBtn',
-      '省份排行榜',
-      420,
-      80,
-      Theme.matcha,
-    );
-    rankBtn.node.setPosition(0, -30, 0);
+    // 6) 次级入口（弱化，不抢主 CTA）
+    const rankBtn = UIBuilder.makeGhostButton(parent, 'RankBtn', '省份排行榜', 400, 72);
+    rankBtn.node.setPosition(0, -160, 0);
+    const dailyBtn = UIBuilder.makeGhostButton(parent, 'DailyBtn', '每日挑战', 400, 72);
+    dailyBtn.node.setPosition(0, -245, 0);
 
-    const dailyBtn = UIBuilder.makeCapsuleButton(
-      parent,
-      'DailyBtn',
-      '每日挑战',
-      420,
-      80,
-      Theme.lightBlue,
-    );
-    dailyBtn.node.setPosition(0, -130, 0);
-
-    // 底部导航
+    // 7) 底部轻工具条
     const bottom = new Node('BottomNav');
     parent.addChild(bottom);
     const bw = bottom.addComponent(Widget);
     bw.isAlignBottom = true;
     bw.isAlignHorizontalCenter = true;
-    bw.bottom = 40;
-    bottom.addComponent(UITransform).setContentSize(700, 100);
+    bw.bottom = 36;
+    bottom.addComponent(UITransform).setContentSize(700, 110);
 
-    const albumBtn = UIBuilder.makeCapsuleButton(
-      bottom,
-      'AlbumBtn',
-      '动物图鉴',
-      180,
-      64,
-      '#A5D6A7',
-    );
+    const dock = new Node('DockGlass');
+    bottom.addChild(dock);
+    dock.addComponent(UITransform).setContentSize(680, 96);
+    const dg = dock.addComponent(Graphics);
+    dg.fillColor = hexColor('#FFFFFF', 90);
+    dg.roundRect(-340, -48, 680, 96, 28);
+    dg.fill();
+    dg.strokeColor = hexColor('#FFFFFF', 160);
+    dg.lineWidth = 2;
+    dg.roundRect(-340, -48, 680, 96, 28);
+    dg.stroke();
+
+    const albumBtn = UIBuilder.makeGhostButton(dock, 'AlbumBtn', '图鉴', 150, 56, Theme.lobbyInk);
     albumBtn.node.setPosition(-220, 0, 0);
-
-    const coinLabel = UIBuilder.makeLabel(bottom, 'Coins', '金币 0 · 道具就绪', 22);
+    const coinLabel = UIBuilder.makeLabel(dock, 'Coins', '关卡 1 · 准备解压', 22, Theme.lobbyInk);
     coinLabel.node.setPosition(0, 0, 0);
-
-    const shareBtn = UIBuilder.makeCapsuleButton(
-      bottom,
-      'ShareBtn',
-      '分享有礼',
-      180,
-      64,
-      Theme.warmOrange,
-    );
+    const shareBtn = UIBuilder.makeGhostButton(dock, 'ShareBtn', '分享', 150, 56, Theme.warmOrange);
     shareBtn.node.setPosition(220, 0, 0);
 
     return { startBtn, rankBtn, dailyBtn, albumBtn, shareBtn, coinLabel, nameLabel };
+  }
+
+  /** 大厅氛围：程序渐变 + 可选贴图 */
+  private static paintLobbyAtmosphere(parent: Node): void {
+    const bg = new Node('LobbyAtmosphere');
+    parent.addChild(bg);
+    bg.addComponent(UITransform).setContentSize(DESIGN_WIDTH, DESIGN_HEIGHT);
+    const g = bg.addComponent(Graphics);
+    // 多层色带近似渐变
+    const bands = [
+      { y: 500, h: 380, c: Theme.lobbySkyTop },
+      { y: 180, h: 320, c: '#C8EBD8' },
+      { y: -120, h: 320, c: '#E7F3C9' },
+      { y: -420, h: 360, c: Theme.lobbySkyBottom },
+      { y: -620, h: 220, c: '#7EAE78' },
+    ];
+    for (const b of bands) {
+      g.fillColor = hexColor(b.c);
+      g.rect(-DESIGN_WIDTH / 2, b.y - b.h / 2, DESIGN_WIDTH, b.h);
+      g.fill();
+    }
+    // 阳光晕
+    g.fillColor = hexColor('#FFD39A', 55);
+    g.circle(220, 420, 160);
+    g.fill();
+    // 远山剪影
+    g.fillColor = hexColor('#5F9E72', 120);
+    g.circle(-180, -520, 260);
+    g.fill();
+    g.fillColor = hexColor('#4E8F63', 140);
+    g.circle(220, -560, 300);
+    g.fill();
+
+    const widget = bg.addComponent(Widget);
+    widget.isAlignTop = widget.isAlignBottom = widget.isAlignLeft = widget.isAlignRight = true;
+    widget.top = widget.bottom = widget.left = widget.right = 0;
+
+    UIBuilder.tryBindSprite(bg, 'textures/ui/lobby_bg/spriteFrame', DESIGN_WIDTH, DESIGN_HEIGHT);
+  }
+
+  private static drawHeroFallback(hero: Node): void {
+    const g = hero.addComponent(Graphics);
+    // 光台
+    g.fillColor = hexColor('#FFFFFF', 70);
+    g.ellipse(0, -160, 220, 48);
+    g.fill();
+    const critters: Array<{ x: number; y: number; r: number; c: string }> = [
+      { x: -170, y: -20, r: 58, c: '#FF8A65' },
+      { x: 0, y: 40, r: 72, c: '#81C784' },
+      { x: 170, y: -10, r: 56, c: '#4FC3F7' },
+      { x: -70, y: -70, r: 42, c: '#F48FB1' },
+      { x: 90, y: -75, r: 40, c: '#FFB74D' },
+    ];
+    for (const c of critters) {
+      g.fillColor = hexColor('#000000', 35);
+      g.ellipse(c.x, c.y - c.r * 0.75, c.r * 0.7, c.r * 0.28);
+      g.fill();
+      g.fillColor = hexColor(c.c);
+      g.circle(c.x, c.y, c.r);
+      g.fill();
+      g.fillColor = hexColor('#FFFFFF', 70);
+      g.circle(c.x - c.r * 0.28, c.y + c.r * 0.28, c.r * 0.28);
+      g.fill();
+    }
+  }
+
+  /** 立体主按钮 */
+  static makeDepthButton(
+    parent: Node,
+    name: string,
+    text: string,
+    width: number,
+    height: number,
+    faceHex: string,
+    depthHex: string,
+    fontSize = 36,
+  ): CapsuleButton {
+    const node = new Node(name);
+    parent.addChild(node);
+    node.addComponent(UITransform).setContentSize(width, height);
+    const g = node.addComponent(Graphics);
+    const r = Math.min(40, height / 2);
+    g.fillColor = hexColor(depthHex);
+    g.roundRect(-width / 2, -height / 2 - 6, width, height, r);
+    g.fill();
+    g.fillColor = hexColor(faceHex);
+    g.roundRect(-width / 2, -height / 2 + 4, width, height - 8, r);
+    g.fill();
+    g.fillColor = hexColor('#FFFFFF', 70);
+    g.roundRect(-width / 2 + 18, height / 2 - 36, width - 36, 18, 10);
+    g.fill();
+    node.addComponent(Button);
+    const label = UIBuilder.makeLabel(node, 'Label', text, fontSize, '#FFFFFF');
+    label.isBold = true;
+    label.node.setPosition(0, 4, 0);
+
+    const handlers: Array<() => void> = [];
+    node.on(NodeEventTouchEnd, () => handlers.forEach((h) => h()));
+    node.on('touch-start', () => {
+      node.setScale(new Vec3(0.97, 0.97, 1));
+    });
+    node.on('touch-cancel', () => {
+      node.setScale(new Vec3(1, 1, 1));
+    });
+    node.on(NodeEventTouchEnd, () => {
+      node.setScale(new Vec3(1, 1, 1));
+    });
+    return {
+      node,
+      label,
+      onClick: (cb) => {
+        handlers.push(cb);
+      },
+    };
+  }
+
+  /** 玻璃次级按钮 */
+  static makeGhostButton(
+    parent: Node,
+    name: string,
+    text: string,
+    width: number,
+    height: number,
+    textColor: string = Theme.lobbyInk,
+  ): CapsuleButton {
+    const node = new Node(name);
+    parent.addChild(node);
+    node.addComponent(UITransform).setContentSize(width, height);
+    const g = node.addComponent(Graphics);
+    const r = height / 2;
+    g.fillColor = hexColor('#FFFFFF', 110);
+    g.roundRect(-width / 2, -height / 2, width, height, r);
+    g.fill();
+    g.strokeColor = hexColor('#FFFFFF', 180);
+    g.lineWidth = 2;
+    g.roundRect(-width / 2, -height / 2, width, height, r);
+    g.stroke();
+    node.addComponent(Button);
+    const label = UIBuilder.makeLabel(node, 'Label', text, Math.floor(height * 0.36), textColor);
+    label.isBold = true;
+    const handlers: Array<() => void> = [];
+    node.on(NodeEventTouchEnd, () => handlers.forEach((h) => h()));
+    return {
+      node,
+      label,
+      onClick: (cb) => {
+        handlers.push(cb);
+      },
+    };
+  }
+
+  /** 尝试把 resources 贴图绑到节点 Sprite（失败则保留 Graphics） */
+  private static tryBindSprite(
+    node: Node,
+    path: string,
+    width: number,
+    height: number,
+    clearGraphics = false,
+  ): void {
+    resources.load(path, SpriteFrame, (err, sf) => {
+      if (err || !sf) {
+        // 兼容不带 /spriteFrame 的路径
+        const alt = path.replace(/\/spriteFrame$/, '');
+        if (alt !== path) {
+          resources.load(alt, SpriteFrame, (err2, sf2) => {
+            if (!err2 && sf2) UIBuilder.applySprite(node, sf2, width, height, clearGraphics);
+          });
+        }
+        return;
+      }
+      UIBuilder.applySprite(node, sf, width, height, clearGraphics);
+    });
+  }
+
+  private static applySprite(
+    node: Node,
+    sf: SpriteFrame,
+    width: number,
+    height: number,
+    clearGraphics: boolean,
+  ): void {
+    if (clearGraphics) {
+      const g = node.getComponent(Graphics);
+      if (g) g.clear();
+    }
+    let sp = node.getComponent(Sprite);
+    if (!sp) sp = node.addComponent(Sprite);
+    sp.spriteFrame = sf;
+    sp.sizeMode = 0;
+    const ut = node.getComponent(UITransform) ?? node.addComponent(UITransform);
+    ut.setContentSize(width, height);
+    // 若节点上已有 Graphics 填充，把 Sprite 颜色设为不透明覆盖
+    sp.color = new Color(255, 255, 255, 255);
   }
 
   /** 游戏主界面：Top 15% / Board 65% / Item 20% */

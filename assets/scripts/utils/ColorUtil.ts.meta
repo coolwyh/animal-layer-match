@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.23",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "c797d3ae-f1a4-5dae-9753-8286e70a89bd",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "moduleId": "project:///assets/scripts/utils/ColorUtil.js",
+    "importerSettings": 0,
+    "simulateGlobals": []
+  }
+}

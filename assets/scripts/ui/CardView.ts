@@ -5,12 +5,14 @@ import {
   Graphics,
   Label,
   Node,
+  Sprite,
   UIOpacity,
   UITransform,
   Vec3,
 } from 'cc';
 import type { CardData } from '../core/CardData';
 import { ANIMAL_NAMES, BoardConfig, Theme } from '../core/GameConfig';
+import { ResourceManager } from '../managers/ResourceManager';
 import { hexColor } from '../utils/ColorUtil';
 
 const { ccclass } = _decorator;
@@ -82,17 +84,25 @@ export class CardView extends Component {
     base.addComponent(UITransform).setContentSize(w, h);
     this.baseG = base.addComponent(Graphics);
 
-    // Icon (文字占位，可替换为 Sprite)
+    // Icon：优先用 resources 贴图，否则文字占位
     const icon = new Node('Icon');
     this.node.addChild(icon);
-    icon.addComponent(UITransform).setContentSize(w, h);
-    this.iconLabel = icon.addComponent(Label);
-    this.iconLabel.fontSize = 22;
-    this.iconLabel.lineHeight = 26;
-    this.iconLabel.horizontalAlign = Label.HorizontalAlign.CENTER;
-    this.iconLabel.verticalAlign = Label.VerticalAlign.CENTER;
-    this.iconLabel.color = hexColor(Theme.textDark);
-    this.iconLabel.string = ANIMAL_NAMES[this.data.pattern] ?? this.data.pattern;
+    icon.addComponent(UITransform).setContentSize(w - 8, h - 8);
+    const frame = ResourceManager.instance.getAnimalFrame(this.data.pattern);
+    if (frame) {
+      const sp = icon.addComponent(Sprite);
+      sp.spriteFrame = frame;
+      sp.sizeMode = 0;
+      this.iconLabel = null;
+    } else {
+      this.iconLabel = icon.addComponent(Label);
+      this.iconLabel.fontSize = 22;
+      this.iconLabel.lineHeight = 26;
+      this.iconLabel.horizontalAlign = Label.HorizontalAlign.CENTER;
+      this.iconLabel.verticalAlign = Label.VerticalAlign.CENTER;
+      this.iconLabel.color = hexColor(Theme.textDark);
+      this.iconLabel.string = ANIMAL_NAMES[this.data.pattern] ?? this.data.pattern;
+    }
 
     // Mask
     this.maskNode = new Node('Mask');
