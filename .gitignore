@@ -11,3 +11,5 @@ native/
 .idea/
 .vscode/
 package-lock.json
+__pycache__/
+*.pyc
